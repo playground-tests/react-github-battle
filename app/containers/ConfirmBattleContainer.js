@@ -3,7 +3,6 @@ var PropTypes = React.PropTypes;
 var ConfirmBattle = require('../components/ConfirmBattle');
 var githubHelpers = require('../utils/githubHelpers.js');
 
-
 var ConfirmBattleContainer = React.createClass({
 
 contextTypes:{
