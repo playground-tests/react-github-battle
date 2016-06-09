@@ -5,6 +5,7 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     inject: 'body'
 })
 module.exports = {
+    devtool: 'source-map',
     entry: ['./app/index.js'],
     module: {
         loaders: [{
