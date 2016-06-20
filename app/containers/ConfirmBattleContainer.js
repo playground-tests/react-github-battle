@@ -1,9 +1,11 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
-var ConfirmBattle = require('../components/ConfirmBattle');
-var githubHelpers = require('../utils/githubHelpers.js');
-
-var ConfirmBattleContainer = React.createClass({
+import React from 'react'
+import {
+    connect
+} from 'react-redux'
+import ConfirmBattle from '../components/ConfirmBattle'
+import actions from '../actions'
+import githubHelpers from '../utils/githubHelpers.js'
+  const ConfirmBattleContainer = React.createClass({
 
 contextTypes:{
   router: React.PropTypes.object.isRequired
@@ -55,4 +57,4 @@ handleInitiateBattle: function() {
 
 });
 
-module.exports = ConfirmBattleContainer;
+export default ConfirmBattleContainer;

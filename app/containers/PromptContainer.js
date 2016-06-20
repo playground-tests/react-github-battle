@@ -3,7 +3,7 @@ import {
 } from 'react-redux'
 import Prompt from '../components/Prompt'
 import actions from '../actions'
-
+import React from 'react'
 
 
 const mapStateToProps = function(state) {
@@ -17,6 +17,7 @@ const mapStateToProps = function(state) {
 const actionTypeDefiner = (username) => {
     return (dispatch, getState) => {
         let State = getState();
+        console.log(State);
         if (State.player1 == "") {
             dispatch({
                 type: "SAVE_P1",
@@ -27,6 +28,9 @@ const actionTypeDefiner = (username) => {
                 type: "SAVE_P2",
                 username: username
             })
+
+
+
         }
     }
 }
@@ -46,6 +50,8 @@ const PromptContainer = connect(
     mapStateToProps,
     mapDispatchToProps
 )(Prompt)
+
+
 
 
 export default PromptContainer

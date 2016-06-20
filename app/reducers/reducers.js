@@ -1,10 +1,9 @@
 import {combineReducers} from 'redux';
 
-
-const initialState = {
+let initialState = {
   header: "Enter player 1:",
   player1: "",
-  player2: ""
+  player2: "a"
 }
 
 const player1 = (state = initialState, action) => {
