@@ -4,6 +4,9 @@ import {
 import Prompt from '../components/Prompt'
 import actions from '../actions'
 import React from 'react'
+import { push } from 'react-router-redux'
+
+// this.props.dispatch(routeActions.push('/foo));
 
 
 const mapStateToProps = function(state) {
@@ -24,10 +27,11 @@ const actionTypeDefiner = (username) => {
                 username: username
             })
         } else {
-            dispatch({
-                type: "SAVE_P2",
-                username: username
-            })
+          dispatch(push('/confirm'));
+            // dispatch({
+            //     type: "SAVE_P2",
+            //     username: username
+            // })
 
 
 

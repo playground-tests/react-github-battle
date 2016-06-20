@@ -15,7 +15,10 @@ let initialState = {
   player1: "",
   player2: "a"
 }
-let store = createStore(reducer, initialState, applyMiddleware(thunk));
+import { routerMiddleware, push } from 'react-router-redux'
+const middleware = routerMiddleware(hashHistory)
+
+let store = createStore(reducer, initialState, applyMiddleware(thunk, middleware));
 import { Provider } from 'react-redux'
 import PromptContainer from '../containers/PromptContainer'
 import ConfirmBattleContainer from '../containers/ConfirmBattleContainer'
