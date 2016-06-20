@@ -1,51 +1,51 @@
-var React = require('react');
-var Prompt = require('../components/Prompt')
+import {
+    connect
+} from 'react-redux'
+import Prompt from '../components/Prompt'
+import actions from '../actions'
 
 
-var PromptContainer = React.createClass({
 
-  contextTypes:{
-    router: React.PropTypes.object.isRequired
-  },
-  getInitialState: function(){
+const mapStateToProps = function(state) {
+    console.log(state.header);
     return {
-      username: ''
+        header: state.header,
     }
-  },
-  handleUpdateUser: function (e) {
-      this.setState({
-        username: e.target.value
-      })
-  },
-  handleSubmitUser: function (e) {
-    e.preventDefault();
-    var username = this.state.username;
-      this.setState({
-        username: ''
-      })
+}
 
-      if(this.props.routeParams.playerOne){
-        this.context.router.push({
-          pathname: '/battle',
-          query: {
-            playerOne: this.props.routeParams.playerOne,
-            playerTwo: this.state.username
-          }
-        })
-      }else{
-        this.context.router.push('/playerTwo/' + this.state.username)
-      }
-  },
-    render: function() {
-        return (
-          <Prompt onSubmitUser={this.handleSubmitUser}
-          onUpdateUser={this.handleUpdateUser}
-          header={this.props.route.header}
-          username={this.state.username}
-          />
-        )
+
+const actionTypeDefiner = (username) => {
+    return (dispatch, getState) => {
+        let State = getState();
+        if (State.player1 == "") {
+            dispatch({
+                type: "SAVE_P1",
+                username: username
+            })
+        } else {
+            dispatch({
+                type: "SAVE_P2",
+                username: username
+            })
+        }
     }
-})
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        onSubmitUser: () => {
+            let field = document.getElementById('username')
+            let input = document.getElementById('username').value
+            dispatch(actionTypeDefiner(input))
+            field.value = "";
+        },
+    }
+}
+
+const PromptContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Prompt)
 
 
-module.exports = PromptContainer;
+export default PromptContainer
