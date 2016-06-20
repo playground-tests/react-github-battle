@@ -1,6 +1,4 @@
-import {
-    connect
-} from 'react-redux'
+import {connect} from 'react-redux'
 import Prompt from '../components/Prompt'
 import actions from '../actions'
 import React from 'react'
@@ -27,11 +25,11 @@ const actionTypeDefiner = (username) => {
                 username: username
             })
         } else {
-          dispatch(push('/confirm'));
-            // dispatch({
-            //     type: "SAVE_P2",
-            //     username: username
-            // })
+            dispatch({
+                type: "SAVE_P2",
+                username: username
+            })
+            dispatch(push('/confirm'));
 
 
 

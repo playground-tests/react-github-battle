@@ -3,58 +3,57 @@ import {
     connect
 } from 'react-redux'
 import ConfirmBattle from '../components/ConfirmBattle'
+import {PropTypes} from 'react'
+import {push} from 'react-router-redux'
 import actions from '../actions'
 import githubHelpers from '../utils/githubHelpers.js'
-  const ConfirmBattleContainer = React.createClass({
 
-contextTypes:{
-  router: React.PropTypes.object.isRequired
-},
-getInitialState: function(){
-  console.log("getInitialState")
-  return{
-    isLoading: true,
-    playerInfo: []
-  }
-},
+
+const ConfirmBattleContainer = React.createClass({
+
 componentWillMount: function(){
-  console.log("componentWillMount")
+  let store = this.props.route.store;
+  store.subscribe(()=> {
+    this.forceUpdate()
+  })
+  store.dispatch({type:"START_LOADING"})
+  var currentState = this.props.route.store.getState();
+  githubHelpers.getPlayersInfo([currentState.player1, currentState.player2])
+  .then(function(players){
+    store.dispatch({type:'LOADED_PLAYERS', playerInfo: [players[0], players[1]]})
+  }.bind(this))
 },
 componentWillReceiveProps: function(){
   console.log("componentWillRecieveProps")
 },
+//get player info from usernames
 componentDidMount: function(){
   //after render
+  let store = this.props.route.store;
   console.log("componentDidMount")
-  var query = this.props.location.query;
-  githubHelpers.getPlayersInfo([query.playerOne, query.playerTwo])
-  .then(function(players){
-    this.setState({
-      isLoading: false,
-      playerInfo: [players[0], players[1]]
-    })
-  }.bind(this))
-  //get player info from usernames
+  store.dispatch({type:'LOADED_CONFIRM'})
+
 },
 handleInitiateBattle: function() {
-  this.context.router.push({
-    pathname: '/results',
-    state: {
-      playerInfo: this.state.playerInfo
-    }
-  })
+  let store = this.props.route.store;
+  store.dispatch(push('/results'));
 },
   render: function() {
     console.log("render")
-
     return (
       <ConfirmBattle
         onInitiateBattle = {this.handleInitiateBattle}
-        playerInfo={this.state.playerInfo}
-        isLoading={this.state.isLoading} />
+        playerInfo={this.props.route.store.getState().playerInfo}
+        isLoading={this.props.route.store.getState().isLoading} />
     );
   }
 
+
+
+
 });
+ConfirmBattleContainer.propTypes = {
+  store: PropTypes.object
+}
 
 export default ConfirmBattleContainer;

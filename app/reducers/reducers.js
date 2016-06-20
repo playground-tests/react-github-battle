@@ -3,7 +3,9 @@ import {combineReducers} from 'redux';
 let initialState = {
   header: "Enter player 1:",
   player1: "",
-  player2: "a"
+  player2: "a",
+  playerInfo: [],
+  isLoading: false
 }
 
 const player1 = (state = initialState, action) => {
@@ -40,10 +42,23 @@ const player2 = (state = initialState, action) => {
   return state;
 }
 
+
+const playerInfo = (state = initialState, action) => {
+  console.log(action.type);
+  console.log(action.playerInfo);
+  if (action.type == "LOADED_PLAYERS")
+      return action.playerInfo;
+
+  return state;
+}
+
 const isLoading = (state = initialState, action) => {
-  if(action.type == "DONE_LOADING"){
-    return Object.assign({}, state, {isLoading:false});
-  }
+  if(action.type == "LOADED_CONFIRM")
+    return false;
+
+
+  if(action.type == "START_LOADING")
+      return true;
   return state;
 
 }
@@ -52,5 +67,7 @@ const isLoading = (state = initialState, action) => {
 export default combineReducers({
   player1,
   player2,
-  header
+  playerInfo,
+  header,
+  isLoading
 })

@@ -15,9 +15,8 @@ let initialState = {
   player1: "",
   player2: "a"
 }
-import { routerMiddleware, push } from 'react-router-redux'
+import { routerMiddleware } from 'react-router-redux'
 const middleware = routerMiddleware(hashHistory)
-
 let store = createStore(reducer, initialState, applyMiddleware(thunk, middleware));
 import { Provider } from 'react-redux'
 import PromptContainer from '../containers/PromptContainer'
@@ -27,7 +26,7 @@ var routes = (
 <Provider store={store} >
   <Router history={hashHistory}>
     <Route path="/" component={PromptContainer} />
-    <Route path="/confirm" component={ConfirmBattleContainer} />
+    <Route path="/confirm" store={store} component={ConfirmBattleContainer} />
   </Router>
 </Provider>
 )
