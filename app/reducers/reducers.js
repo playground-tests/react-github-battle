@@ -9,9 +9,6 @@ let initialState = {
 }
 
 const player1 = (state = initialState, action) => {
-  // if(action.type == "SAVE_P1"){
-  //   return Object.assign({}, state, );
-  // }
   if (action.type == "SAVE_P1")
       return  action.username;
   if (action.type == "RESELECT")
@@ -29,9 +26,6 @@ const header = (state = initialState, action) => {
   return state;
 }
 
-
-
-
 const player2 = (state = initialState, action) => {
   if (action.type == "SAVE_P2")
       return  action.username;
@@ -40,7 +34,6 @@ const player2 = (state = initialState, action) => {
 
   return state;
 }
-
 
 const playerInfo = (state = initialState, action) => {
   if (action.type == "RECEIVED_PLAYERS")
