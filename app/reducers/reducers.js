@@ -63,7 +63,6 @@ const isLoading = (state = initialState, action) => {
 
   if(action.type == "WAITING_FOR_PLAYERS" || action.type == "WAITING_FOR_RESULTS")
   {
-    console.log("waiting abi");
     return true;
   }
   return state;

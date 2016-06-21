@@ -23,9 +23,7 @@ const ConfirmBattleContainer = React.createClass({
 componentWillMount: function(){
   let state  = this.context.store.getState();
   let players = [state.player1, state.player2];
-  console.log("Players", players)
   this.context.store.dispatch(actions.fetchPlayers(players));
-  console.log("abook");
 },
 render: function(){
   return (
