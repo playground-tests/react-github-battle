@@ -8,7 +8,6 @@ import { push } from 'react-router-redux'
 
 
 const mapStateToProps = function(state) {
-    console.log(state.header);
     return {
         header: state.header,
     }
@@ -18,7 +17,6 @@ const mapStateToProps = function(state) {
 const actionTypeDefiner = (username) => {
     return (dispatch, getState) => {
         let State = getState();
-        console.log(State);
         if (State.player1 == "") {
             dispatch({
                 type: "SAVE_P1",

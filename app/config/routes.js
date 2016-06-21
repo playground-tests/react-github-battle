@@ -6,14 +6,14 @@ var IndexRoute = ReactRouter.IndexRoute;
 var Main = require('../components/Main');
 var Home = require('../components/Home');
 var hashHistory = ReactRouter.hashHistory;
-var ResultsContainer = require('../containers/ResultsContainer');
 import { createStore,applyMiddleware } from 'redux';
 import reducer from '../reducers/reducers';
 import thunk from 'redux-thunk';
 let initialState = {
   header: "Enter player 1:",
   player1: "",
-  player2: "a"
+  player2: "a",
+  isLoading: true
 }
 import { routerMiddleware } from 'react-router-redux'
 const middleware = routerMiddleware(hashHistory)
@@ -21,12 +21,14 @@ let store = createStore(reducer, initialState, applyMiddleware(thunk, middleware
 import { Provider } from 'react-redux'
 import PromptContainer from '../containers/PromptContainer'
 import ConfirmBattleContainer from '../containers/ConfirmBattleContainer'
+import ResultsContainer from '../containers/ResultsContainer'
 
 var routes = (
 <Provider store={store} >
   <Router history={hashHistory}>
     <Route path="/" component={PromptContainer} />
-    <Route path="/confirm" store={store} component={ConfirmBattleContainer} />
+    <Route path="/confirm" component={ConfirmBattleContainer} />
+    <Route path="/results" component={ResultsContainer} />
   </Router>
 </Provider>
 )

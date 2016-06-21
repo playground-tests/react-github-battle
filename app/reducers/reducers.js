@@ -5,14 +5,13 @@ let initialState = {
   player1: "",
   player2: "a",
   playerInfo: [],
-  isLoading: false
+  isLoading: true
 }
 
 const player1 = (state = initialState, action) => {
   // if(action.type == "SAVE_P1"){
   //   return Object.assign({}, state, );
   // }
-  console.log(state);
   switch (action.type) {
     case "SAVE_P1":
       return  action.username;
@@ -22,7 +21,6 @@ const player1 = (state = initialState, action) => {
 }
 
 const header = (state = initialState, action) => {
-  console.log(action.type);
   switch (action.type) {
     case "SAVE_P1":
       return "Enter player 2:";
@@ -35,7 +33,6 @@ const header = (state = initialState, action) => {
 
 
 const player2 = (state = initialState, action) => {
-  console.log(action.type);
   if (action.type == "SAVE_P2")
       return  action.username;
 
@@ -44,20 +41,18 @@ const player2 = (state = initialState, action) => {
 
 
 const playerInfo = (state = initialState, action) => {
-  console.log(action.type);
-  console.log(action.playerInfo);
-  if (action.type == "LOADED_PLAYERS")
+  if (action.type == "RECEIVED_PLAYERS")
       return action.playerInfo;
 
   return state;
 }
 
 const isLoading = (state = initialState, action) => {
-  if(action.type == "LOADED_CONFIRM")
+  if(action.type == "RECEIVED_PLAYERS")
     return false;
 
 
-  if(action.type == "START_LOADING")
+  if(action.type == "WAITING_FOR_PLAYERS")
       return true;
   return state;
 

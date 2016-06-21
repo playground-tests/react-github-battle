@@ -33,5 +33,9 @@ componentDidMount: function(){
   }
 
 });
+ResultsContainer.contextTypes = {
+  store: PropTypes.object
+}
 
-module.exports = ResultsContainer;
+
+export default ResultsContainer;

@@ -34,9 +34,7 @@ function ConfirmBattle(props){
               <button style={styles.space} type='button' className='btn btn-lg btn-success' onClick={props.onInitiateBattle}>Initiate Battle!</button>
             </div>
             <div className='col-sm-12' style={styles.space}>
-              <Link to='/playerOne'>
-                <button style={styles.space} type='button' className='btn btn-lg btn-danger'>Reselect Players</button>
-              </Link>
+              <button style={styles.space} type='button' onClick={props.reselectPlayers} className='btn btn-lg btn-danger'>Reselect Players</button>
             </div>
           </div>
         </div>
@@ -48,7 +46,8 @@ function ConfirmBattle(props){
 ConfirmBattle.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   onInitiateBattle: PropTypes.func.isRequired,
-  playerInfo: PropTypes.object.isRequired
+  reselectPlayers: PropTypes.func.isRequired,
+  playerInfo: PropTypes.array.isRequired
 }
 
 module.exports = ConfirmBattle;
