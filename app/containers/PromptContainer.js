@@ -17,12 +17,12 @@ const mapStateToProps = function(state) {
 const actionTypeDefiner = (username) => {
     return (dispatch, getState) => {
         let State = getState();
-        if (State.player1 == "") {
+        if (State.player1 == "" && username != "") {
             dispatch({
                 type: "SAVE_P1",
                 username: username
             })
-        } else {
+        } else if (State.player2 == "" && username != ""){
             dispatch({
                 type: "SAVE_P2",
                 username: username
@@ -31,6 +31,8 @@ const actionTypeDefiner = (username) => {
 
 
 
+        }else{
+          alert("Please enter a valid username")
         }
     }
 }

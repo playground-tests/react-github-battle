@@ -7,13 +7,11 @@ var Link = require('react-router').Link;
 
 
 
-var StartOver = function(){
+var StartOver = function(props){
   return(
     <div className="col-sm-12" style={styles.space}>
-  <Link to="/playerOne">
-    <button type="button" className="btn btn-lg btn-danger">Start Over</button>
-  </Link>
-  </div>
+    <button type="button" onClick={props.startOver} className="btn btn-lg btn-danger">Start Over</button>
+    </div>
 )
 }
 
@@ -31,7 +29,7 @@ var Results = React.createClass({
       return(
         <div className="jumbotron col-sm-12 text-center" style={styles.transparentBg}>
         <h1>"It's a Tie"</h1>
-          <StartOver />
+          <StartOver startOver={this.props.startOver} />
         </div>
       )
     }
@@ -50,7 +48,7 @@ var Results = React.createClass({
           </UserDetailsWrapper>
         </div>
 
-        <StartOver />
+        <StartOver startOver={this.props.startOver} />
       </div>
     );
   }
@@ -59,6 +57,7 @@ var Results = React.createClass({
 
 Results.propTypes = {
   isLoading: PropTypes.bool.isRequired,
+  startOver: PropTypes.func.isRequired,
   playerInfo: PropTypes.array.isRequired,
   scores: PropTypes.array.isRequired
 }

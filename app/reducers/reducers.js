@@ -12,21 +12,21 @@ const player1 = (state = initialState, action) => {
   // if(action.type == "SAVE_P1"){
   //   return Object.assign({}, state, );
   // }
-  switch (action.type) {
-    case "SAVE_P1":
+  if (action.type == "SAVE_P1")
       return  action.username;
-    default: return state;
+  if (action.type == "RESELECT")
+      return  "";
 
-  }
+  return state;
 }
 
 const header = (state = initialState, action) => {
-  switch (action.type) {
-    case "SAVE_P1":
-      return "Enter player 2:";
-    default: return state;
+  if (action.type == "SAVE_P1")
+      return  "Enter player 2";
+  if (action.type == "RESELECT")
+      return  "Enter player 1";
 
-  }
+  return state;
 }
 
 
@@ -35,6 +35,8 @@ const header = (state = initialState, action) => {
 const player2 = (state = initialState, action) => {
   if (action.type == "SAVE_P2")
       return  action.username;
+  if (action.type == "RESELECT")
+      return  "";
 
   return state;
 }
@@ -47,13 +49,23 @@ const playerInfo = (state = initialState, action) => {
   return state;
 }
 
+const scores = (state = initialState, action) => {
+  if(action.type == "RECEIVED_SCORES")
+    return action.scores;
+
+  return state;
+}
+
 const isLoading = (state = initialState, action) => {
-  if(action.type == "RECEIVED_PLAYERS")
+  if(action.type == "RECEIVED_PLAYERS" || action.type == "RECEIVED_SCORES")
     return false;
 
 
-  if(action.type == "WAITING_FOR_PLAYERS")
-      return true;
+  if(action.type == "WAITING_FOR_PLAYERS" || action.type == "WAITING_FOR_RESULTS")
+  {
+    console.log("waiting abi");
+    return true;
+  }
   return state;
 
 }
@@ -64,5 +76,6 @@ export default combineReducers({
   player2,
   playerInfo,
   header,
+  scores,
   isLoading
 })

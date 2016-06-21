@@ -2,40 +2,44 @@ var React = require('react');
 var PropTypes = React.PropTypes;
 var Results = require('../components/Results')
 var githubHelpers = require('../utils/githubHelpers')
-var ResultsContainer = React.createClass({
-
-getInitialState: function(){
-  return {
-    isLoading : true,
-    scores: []
-  }
+import {connect} from 'react-redux'
+import actions from '../actions'
+const ResultsContainer = React.createClass({
+contextTypes: {
+  store: PropTypes.object
 },
 componentDidMount: function(){
-  var that = this;
-  githubHelpers.battle(this.props.location.state.playerInfo)
-.then(function(scores){
+  let state  = this.context.store.getState();
+  let playerInfo = state.playerInfo;
+  this.context.store.dispatch(actions.calculateScores(playerInfo));
 
-  that.setState({
-    scores: scores,
-    isLoading: false
-  })
-
-})
 },
   render: function() {
     return (
-      <Results
-      isLoading={this.state.isLoading}
-      scores={this.state.scores}
-      playerInfo={this.props.location.state.playerInfo}
-      />
+      <InnerContainer />
     );
   }
 
 });
-ResultsContainer.contextTypes = {
-  store: PropTypes.object
+
+const mapStateToProps = (state) => {
+  return{
+    isLoading: state.isLoading,
+    scores: state.scores,
+    playerInfo: state.playerInfo
+  }
 }
+
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    startOver: () => {
+      dispatch(actions.reselectPlayers())
+    }
+  }
+}
+
+const InnerContainer = connect(mapStateToProps, mapDispatchToProps)(Results);
 
 
 export default ResultsContainer;

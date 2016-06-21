@@ -5,30 +5,33 @@ var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var Main = require('../components/Main');
 var Home = require('../components/Home');
-var hashHistory = ReactRouter.hashHistory;
+var browserHistory = ReactRouter.browserHistory;
 import { createStore,applyMiddleware } from 'redux';
 import reducer from '../reducers/reducers';
 import thunk from 'redux-thunk';
 let initialState = {
   header: "Enter player 1:",
   player1: "",
-  player2: "a",
+  player2: "",
   isLoading: true
 }
 import { routerMiddleware } from 'react-router-redux'
-const middleware = routerMiddleware(hashHistory)
+const middleware = routerMiddleware(browserHistory)
 let store = createStore(reducer, initialState, applyMiddleware(thunk, middleware));
 import { Provider } from 'react-redux'
 import PromptContainer from '../containers/PromptContainer'
 import ConfirmBattleContainer from '../containers/ConfirmBattleContainer'
 import ResultsContainer from '../containers/ResultsContainer'
+import NotFound from '../components/NotFound'
 
 var routes = (
 <Provider store={store} >
-  <Router history={hashHistory}>
+  <Router history={browserHistory}>
     <Route path="/" component={PromptContainer} />
     <Route path="/confirm" component={ConfirmBattleContainer} />
     <Route path="/results" component={ResultsContainer} />
+    <Route path="*" component={NotFound}/>
+
   </Router>
 </Provider>
 )
