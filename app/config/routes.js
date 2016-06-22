@@ -30,7 +30,6 @@ var routes = (
     <Route path="/" component={PromptContainer} />
     <Route path="/confirm" component={ConfirmBattleContainer} />
     <Route path="/results" component={ResultsContainer} />
-    <Route path="*" component={NotFound}/>
 
   </Router>
 </Provider>
